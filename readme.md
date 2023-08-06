@@ -1,16 +1,13 @@
 # ScreenCapture
 
-这里分别使用WGC、DXGI、Direct3D9、Magnifier方法抓屏，并且进行渲染。
+Use WGC, DXGI, Direct3D9, and Magnifier to capture screens and render them.
 
 ## MagnifierScreenCapture
-MagnifierScreenCapture 使用系统的Magnifier接口进行抓屏
-使用 MinHook Hook D3D9Device，将抓屏的 D3D9Texture 数据进行渲染或者编码。。。
+MagnifierScreenCapture uses the system's Magnifier interface to capture the screen.
+Use MinHook Hook D3D9Device to render or encode the screen capture D3D9Texture data. . .
 
-## 待续。。。
+## to be continued. . .
 
-## 待续。。。
+## to be continued. . .
 
-## 待续。。。
-
-## 待续。。。
- 
+## to be continued. . .
