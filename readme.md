@@ -1,6 +1,6 @@
 # ScreenCapture
 
-这里分别使用WGC、DXGI、Direct3D9、Magnifier抓屏方法，并且进行渲染。
+这里分别使用WGC、DXGI、Direct3D9、Magnifier方法抓屏，并且进行渲染。
 
 ## MagnifierScreenCapture
 MagnifierScreenCapture 使用系统的Magnifier接口进行抓屏
