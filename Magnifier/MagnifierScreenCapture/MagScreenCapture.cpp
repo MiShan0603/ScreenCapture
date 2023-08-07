@@ -60,15 +60,20 @@ void MagScreenCapture::SetExcludeHwnd(std::vector<HWND> hWnds)
 	}
 }
 
-bool MagScreenCapture::Init()
+void MagScreenCapture::SetCapRect(RECT capRect)
+{
+	m_capRect = capRect;
+}
+
+bool MagScreenCapture::Init(int width, int height)
 {
 	if (!MagInitialize())
 	{
 		return false;
 	}
 
-	int screenWidth = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-	int screenHeight = GetSystemMetrics(SM_CYVIRTUALSCREEN);
+	int screenWidth = width;
+	int screenHeight = height;
 
 	TCHAR class_name[MAX_PATH] = { 0 };
 	TCHAR window_name[MAX_PATH] = { 0 };
@@ -131,11 +136,10 @@ void MagScreenCapture::UpdateMagWindow()
 		MagSetWindowFilterList(m_hwndMag, MW_FILTERMODE_EXCLUDE, filterCount, filters);
 	}
 
-	int screenWidth = GetSystemMetrics(SM_CXVIRTUALSCREEN);
-	int screenHeight = GetSystemMetrics(SM_CYVIRTUALSCREEN);
+	// RECT sourceRect = { GetSystemMetrics(SM_XVIRTUALSCREEN), GetSystemMetrics(SM_YVIRTUALSCREEN),
+	//	GetSystemMetrics(SM_XVIRTUALSCREEN) + GetSystemMetrics(SM_CXVIRTUALSCREEN), GetSystemMetrics(SM_YVIRTUALSCREEN) + GetSystemMetrics(SM_CYVIRTUALSCREEN) };
 
-	RECT sourceRect = { 0 };
-	sourceRect.right = screenWidth;
-	sourceRect.bottom = screenHeight;
+	RECT sourceRect = m_capRect;
+
 	MagSetWindowSource(m_hwndMag, sourceRect);
 }
