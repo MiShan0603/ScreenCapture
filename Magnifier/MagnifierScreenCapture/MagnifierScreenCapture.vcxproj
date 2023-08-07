@@ -78,11 +78,11 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IntDir>$(SolutionDir)$(Platform)\obj\$(Configuration)\$(ProjectName)</IntDir>
-    <IncludePath>$(IncludePath);..\..\Include\Microsoft DirectX SDK %28June 2010%29\Include;</IncludePath>
+    <IncludePath>$(IncludePath);$(SolutionDir)\Include\Microsoft DirectX SDK %28June 2010%29\Include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(SolutionDir)$(Platform)\obj\$(Configuration)\$(ProjectName)</IntDir>
-    <IncludePath>$(IncludePath);..\..\Include\Microsoft DirectX SDK %28June 2010%29\Include;</IncludePath>
+    <IncludePath>$(IncludePath);$(SolutionDir)\Include\Microsoft DirectX SDK %28June 2010%29\Include</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -149,10 +149,10 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Include\D3DRender\D3DRender.h" />
     <ClInclude Include="..\..\Include\nanovg\nanovg.h" />
     <ClInclude Include="..\..\Include\nanovg\nanovg_d3d11.h" />
     <ClInclude Include="D3DEngineWrap.h" />
-    <ClInclude Include="D3DRender.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MagnifierScreenCapture.h" />
     <ClInclude Include="MagScreenCapture.h" />
@@ -160,10 +160,10 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Include\D3DRender\D3DRender.cpp" />
     <ClCompile Include="..\..\Include\nanovg\nanovg.c" />
     <ClCompile Include="..\..\Include\nanovg\nanovg_d3d11.cpp" />
     <ClCompile Include="D3DEngineWrap.cpp" />
-    <ClCompile Include="D3DRender.cpp" />
     <ClCompile Include="MagnifierScreenCapture.cpp" />
     <ClCompile Include="MagScreenCapture.cpp" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 #include "D3DEngineWrap.h"
 
 #include "MinHook.h"
-#include "D3DRender.h"
+#include "D3DRender/D3DRender.h"
 
 #pragma comment(lib, "d3d9.lib")
 
@@ -15,7 +15,7 @@ FUNCTIONIMPL(HRESULT, D3DDevice9_CreateTexture, IDirect3DDevice9Ex* This, UINT W
 	HRESULT hr = OldD3DDevice9_CreateTexture(This, Width, Height, Levels, Usage, Format, Pool, ppTexture, pSharedHandle);
 	if (SUCCEEDED(hr))
 	{
-		hSharedHandle = *pSharedHandle;
+		D3DEngineWrap::Instance()->SetSharedHandle(*pSharedHandle);
 	}
 
 	return hr;
@@ -30,22 +30,7 @@ FUNCTIONIMPL(HRESULT, D3DDevice9_StretchRect, IDirect3DDevice9Ex* This, IDirect3
 
 FUNCTIONIMPL(HRESULT, D3DDevice9_PresentEx, IDirect3DDevice9Ex* This, CONST RECT* pSourceRect, CONST RECT* pDestRect, HWND hDestWindowOverride, CONST RGNDATA* pDirtyRegion, DWORD dwFlags)
 {
-	////D3DPRESENT_FORCEIMMEDIATE
-	//CComPtr<IDirect3DSurface9> pBackBuffer;
-	//This->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &pBackBuffer);
-
-	//D3DSURFACE_DESC desc;
-	//pBackBuffer->GetDesc(&desc);
-
-	//char debugInfo[256] = { 0 };
-	//sprintf_s(debugInfo, "buff ptr: %p,  w: %d, h: %d \n", pBackBuffer.p, desc.Width, desc.Height);
-	//OutputDebugStringA(debugInfo);
-
-
-	//HRESULT hr = OldD3DDevice9_PresentEx(This, pSourceRect, pDestRect, hDestWindowOverride, pDirtyRegion, dwFlags);
-
-
-	D3D10Render();
+	D3DEngineWrap::Instance()->Render();
 
 	return S_OK;
 }

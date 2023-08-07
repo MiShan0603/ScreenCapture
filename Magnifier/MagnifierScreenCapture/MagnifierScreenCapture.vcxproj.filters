@@ -48,11 +48,11 @@
     <ClInclude Include="D3DEngineWrap.h">
       <Filter>D3D</Filter>
     </ClInclude>
-    <ClInclude Include="D3DRender.h">
-      <Filter>D3D</Filter>
-    </ClInclude>
     <ClInclude Include="MagScreenCapture.h">
       <Filter>MagCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\D3DRender\D3DRender.h">
+      <Filter>D3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +68,11 @@
     <ClCompile Include="D3DEngineWrap.cpp">
       <Filter>D3D</Filter>
     </ClCompile>
-    <ClCompile Include="D3DRender.cpp">
-      <Filter>D3D</Filter>
-    </ClCompile>
     <ClCompile Include="MagScreenCapture.cpp">
       <Filter>MagCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Include\D3DRender\D3DRender.cpp">
+      <Filter>D3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

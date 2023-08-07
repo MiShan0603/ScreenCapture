@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "MagnifierScreenCapture.h"
 
-#include "D3DRender.h"
+#include "D3DRender/D3DRender.h"
 #include "D3DEngineWrap.h"
 #include "MagScreenCapture.h"
 #include <vector>
@@ -187,7 +187,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
                             g_curMontitorIdx = selectIdx;
 
                             MagScreenCapture::Release();
-                            D3DRender::Release();
 
                             std::vector<HWND> hwnds;
                             hwnds.push_back(g_hWnd);
@@ -201,9 +200,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
                             MagScreenCapture::Instance()->SetCapRect(capRect);
                             MagScreenCapture::Instance()->Init(capRect.right - capRect.left, capRect.bottom - capRect.top);
-
-                            // Specify the rendering window
-                            D3DRender::Instance()->Init(g_renderHwnd);
                         }
                     }
                     
