@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{8af68a17-5548-46a8-80f8-2d8befc5f124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\nanovg">
+      <UniqueIdentifier>{1e01b5b2-1629-40ce-b820-fb26e964826e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include\D3DRender">
+      <UniqueIdentifier>{afb00d26-2a13-4b03-a2a0-fa2c533583ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="WGCScreenCapture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowCapture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Include\D3DRender\D3DRender.cpp">
+      <Filter>Include\D3DRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Include\nanovg\nanovg.c">
+      <Filter>Include\nanovg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Include\nanovg\nanovg_d3d11.cpp">
+      <Filter>Include\nanovg</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WindowCapture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\D3DRender\D3DRender.h">
+      <Filter>Include\D3DRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\nanovg\nanovg.h">
+      <Filter>Include\nanovg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Include\nanovg\nanovg_d3d11.h">
+      <Filter>Include\nanovg</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

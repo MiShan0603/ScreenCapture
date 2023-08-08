@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ScreenCapture", "ScreenCapture\ScreenCapture.vcxproj", "{93729335-75A1-4E4C-A0BC-2221E84B7CDF}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magnifier", "Magnifier", "{FE167ACF-2003-4F8F-86DE-C266E0B9E362}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagnifierScreenCapture", "Magnifier\MagnifierScreenCapture\MagnifierScreenCapture.vcxproj", "{B644F743-A19B-41CF-BB82-27199F26959A}"
@@ -17,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DXGI", "DXGI", "{B2DBEE24-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WGC", "WGC", "{4A1FE4E3-5CC6-416C-9066-1B43728976F5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WGCScreenCapture", "WGC\WGCScreenCapture\WGCScreenCapture.vcxproj", "{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -25,14 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Debug|x64.ActiveCfg = Debug|x64
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Debug|x64.Build.0 = Debug|x64
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Debug|x86.ActiveCfg = Debug|Win32
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Debug|x86.Build.0 = Debug|Win32
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Release|x64.ActiveCfg = Release|x64
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Release|x64.Build.0 = Release|x64
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Release|x86.ActiveCfg = Release|Win32
-		{93729335-75A1-4E4C-A0BC-2221E84B7CDF}.Release|x86.Build.0 = Release|Win32
 		{B644F743-A19B-41CF-BB82-27199F26959A}.Debug|x64.ActiveCfg = Debug|x64
 		{B644F743-A19B-41CF-BB82-27199F26959A}.Debug|x64.Build.0 = Debug|x64
 		{B644F743-A19B-41CF-BB82-27199F26959A}.Debug|x86.ActiveCfg = Debug|Win32
@@ -49,6 +41,14 @@ Global
 		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x64.Build.0 = Release|x64
 		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x86.ActiveCfg = Release|Win32
 		{F142A341-5EE0-442D-A15F-98AE9B48DBAE}.Release|x86.Build.0 = Release|Win32
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Debug|x64.ActiveCfg = Debug|x64
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Debug|x64.Build.0 = Debug|x64
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Debug|x86.ActiveCfg = Debug|Win32
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Debug|x86.Build.0 = Debug|Win32
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Release|x64.ActiveCfg = Release|x64
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Release|x64.Build.0 = Release|x64
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Release|x86.ActiveCfg = Release|Win32
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +56,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B644F743-A19B-41CF-BB82-27199F26959A} = {FE167ACF-2003-4F8F-86DE-C266E0B9E362}
 		{F142A341-5EE0-442D-A15F-98AE9B48DBAE} = {FE167ACF-2003-4F8F-86DE-C266E0B9E362}
+		{61C7EDF9-DECB-4C47-A5FE-B2AFA714E508} = {4A1FE4E3-5CC6-416C-9066-1B43728976F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1B438598-449B-4763-B893-DDA64D4BE2FA}
