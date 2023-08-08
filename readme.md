@@ -1,6 +1,7 @@
 # ScreenCapture
 
-Use WGC, DXGI, Direct3D9, and Magnifier to capture screens and render them.
+Use WGC, DXGI, Direct3D9, and Magnifier to capture screens. 
+You can use them to obtain the D3D texture of the screen for encoding or display.
 
 ## MagnifierScreenCapture
 MagnifierScreenCapture uses the system's Magnifier interface to capture the screen.
