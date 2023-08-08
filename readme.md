@@ -21,6 +21,12 @@ WGCScreenCapture uses WGC API to capture the screen and render the D3D11 Texture
 
 ![ScreenShot2](WGC/ScreenShot/2.jpg)
 
-## to be continued. . .
+## D3D9ScreenCapture
+
+D3D9ScreenCapture uses D3D9 API to capture the screen and render the texture of the screen to the UI.
+
+![ScreenShot1](D3D9/ScreenShot/1.jpg)
+
+![ScreenShot2](D3D9/ScreenShot/2.jpg)
 
 ## to be continued. . .
