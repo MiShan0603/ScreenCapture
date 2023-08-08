@@ -191,4 +191,11 @@ bool D3DRender::DrawFrame(HANDLE sharedHanle)
 
 	// Don't wait for VBlank
 	m_pSwapChain->Present(0, 0);
+
+	return true;
+}
+
+CComPtr<ID3D11Device> D3DRender::GetD3D11Device()
+{
+	return m_pD3D11Device;
 }

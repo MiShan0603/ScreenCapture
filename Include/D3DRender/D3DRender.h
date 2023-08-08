@@ -18,6 +18,8 @@ public:
 	bool Init(HWND hWnd);
 	bool DrawFrame(HANDLE sharedHanle);
 
+	CComPtr<ID3D11Device> GetD3D11Device();
+
 private:
 	D3DRender();
 	static D3DRender* m_instance;

@@ -25,6 +25,9 @@
     <Filter Include="MagCapture">
       <UniqueIdentifier>{1cb4494a-e51c-4281-9c5d-12e1fbbe4402}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Include\D3DRender">
+      <UniqueIdentifier>{3e086513-e6a2-41cc-b2ac-fca1fd42d097}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -52,7 +55,7 @@
       <Filter>MagCapture</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Include\D3DRender\D3DRender.h">
-      <Filter>D3D</Filter>
+      <Filter>Include\D3DRender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +75,7 @@
       <Filter>MagCapture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Include\D3DRender\D3DRender.cpp">
-      <Filter>D3D</Filter>
+      <Filter>Include\D3DRender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
