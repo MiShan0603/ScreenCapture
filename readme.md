@@ -5,7 +5,7 @@ You can use them to obtain the D3D texture of the screen for encoding or display
 
 ## MagnifierScreenCapture
 MagnifierScreenCapture uses the system's Magnifier interface to capture the screen.
-Use libMinHook Hook D3D9Device to render or encode the screen capture d3d9 textture . . .
+Use libMinHook hook D3D9Device.
 
 ![ScreenShot1](Magnifier/ScreenShot/1.jpg)
 
