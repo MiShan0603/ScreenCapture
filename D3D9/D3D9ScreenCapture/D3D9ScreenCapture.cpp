@@ -325,7 +325,7 @@ BOOL CALLBACK enum_monitor_props(HMONITOR handle, HDC hdc, LPRECT rect, LPARAM p
             mi.rcMonitor.bottom - mi.rcMonitor.top,
             mi.rcMonitor.left, mi.rcMonitor.top);
         if (mi.dwFlags == MONITORINFOF_PRIMARY)
-            wcscat(miMontitor.monitor_desc, TEXT(" (PrimaryMonitor)"));
+            wcscat_s(miMontitor.monitor_desc, TEXT(" (PrimaryMonitor)"));
 
         g_montitors.push_back(miMontitor);
     }
