@@ -29,4 +29,5 @@ D3D9ScreenCapture uses D3D9 API to capture the screen and render the texture of 
 
 ![ScreenShot2](D3D9/ScreenShot/2.jpg)
 
-## to be continued. . .
+## DXGIScreenCapture
+Use Desktop Duplication API.
