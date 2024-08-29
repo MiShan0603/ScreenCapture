@@ -23,11 +23,13 @@ const int g_renderId = 0x800;
 const int g_staticTextId = 0x801;
 const int g_comboBoxId = 0x802;
 const int g_checkBoxId = 0x803;
+const int g_checkBoxShowCusorId = 0x804;
 
 HWND g_renderHwnd = NULL;
 HWND g_staticTextHwnd = NULL;
 HWND g_comboBoxHwnd = NULL;
 HWND g_checkBoxHwnd = NULL;
+HWND g_checkBoxShowCusorHwnd = NULL;
 
 #pragma endregion Child Wnd
 
@@ -91,6 +93,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     g_windowCapture = std::make_shared<WindowCapture>(D3DRender::Instance()->GetD3D11Device());
     g_windowCapture->Init(g_montitors[g_curMontitorIdx].rect, 30.0);
 
+    int checkBoxValve = (int)SendMessage(g_checkBoxShowCusorHwnd, BM_GETCHECK, 0, 0);
+    g_windowCapture->ShowCusor(checkBoxValve != 0);
+
 	MSG msg;
 	while (GetMessage(&msg, nullptr, 0, 0))
 	{
@@ -143,6 +148,20 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
             break;
         }
+        case g_checkBoxShowCusorId:
+        {
+            int checkBoxValve = (int)SendMessage(g_checkBoxShowCusorHwnd, BM_GETCHECK, 0, 0);
+            if (checkBoxValve != 0)
+            {
+                
+            }
+            else
+            {
+                
+            }
+
+            break;
+        }
         default:
             return DefWindowProc(hWnd, message, wParam, lParam);
         }
@@ -167,7 +186,7 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
         {
             g_comboBoxHwnd = CreateWindow(TEXT("COMBOBOX"), TEXT("hWComBoxList"),
                 WS_CHILD | WS_VISIBLE | WS_VSCROLL | CBS_DROPDOWNLIST,
-                81, (rect.bottom - rect.top) - 29, (rect.right - rect.left) - 203, 300, hWnd,
+                81, (rect.bottom - rect.top) - 29, (rect.right - rect.left) - 340, 300, hWnd,
                 (HMENU)g_comboBoxId, hInst, NULL);
             ::ShowWindow(g_comboBoxHwnd, SW_SHOW);
 
@@ -206,10 +225,17 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
         g_checkBoxHwnd = CreateWindow(TEXT("button"), TEXT("Capture MySelf"),
             WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
-            (rect.right - rect.left) - 123, (rect.bottom - rect.top) - 29, 120, 30,
+            (rect.right - rect.left) - 255, (rect.bottom - rect.top) - 29, 120, 30,
             hWnd, (HMENU)g_checkBoxId, hInst, NULL);
         ::ShowWindow(g_checkBoxHwnd, SW_SHOW);
         SendMessage(g_checkBoxHwnd, BM_SETCHECK, 1, 0);
+
+        g_checkBoxShowCusorHwnd = CreateWindow(TEXT("button"), TEXT("Show Cusor"),
+            WS_VISIBLE | WS_CHILD | BS_AUTOCHECKBOX,
+            (rect.right - rect.left) - 123, (rect.bottom - rect.top) - 29, 120, 30,
+            hWnd, (HMENU)g_checkBoxShowCusorId, hInst, NULL);
+        ::ShowWindow(g_checkBoxShowCusorHwnd, SW_SHOW);
+        SendMessage(g_checkBoxShowCusorHwnd, BM_SETCHECK, 1, 0);
 
         break;
     }

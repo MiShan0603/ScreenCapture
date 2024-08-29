@@ -55,5 +55,7 @@ private:
 	std::mutex m_ddasMutex;
 	// std::vector<std::shared_ptr<DDAImpl>> m_ddaImpls;
 	std::vector<std::shared_ptr<DDAInfo>> m_ddas;
+
+	// NVGcontext* m_NVGcontext = nullptr;
 };
 

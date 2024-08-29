@@ -160,7 +160,7 @@ bool D3DRender::DrawFrame(HANDLE sharedHanle)
 	nvgBeginFrame(m_NVGcontext, nViewW, nViewH, 1.0);
 
 	nvgBeginPath(m_NVGcontext);
-	nvgFillColor(m_NVGcontext, nvgRGBA(0, 0, 0, 255));
+	nvgFillColor(m_NVGcontext, nvgRGBA(0, 0, 255, 255));
 	nvgFill(m_NVGcontext);
 
 	if (m_sharedHandle)

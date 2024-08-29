@@ -17,6 +17,8 @@ public:
 	BOOL Init(RECT monitorRect, float fps = 30.0);
 	void Release();
 
+	void ShowCusor(BOOL show);
+
 private:
 	BOOL m_bCaptureThrdRunning;
 	HANDLE m_hCaptureThrd;
@@ -33,10 +35,10 @@ private:
 	BOOL RectIsOverlap(RECT rect1, RECT rect2, RECT& overlapRect);
 
 private:
-	CComPtr<ID3D11Device> m_pD3D11Device;
+	CComPtr<ID3D11Device> m_d3d11Device;
 	CComPtr<ID3D11DeviceContext> m_d3d11Context;
-	CComPtr<ID3D11Texture2D> m_pSharedTexture;
-	HANDLE m_hSharedHandle;
+	CComPtr<ID3D11Texture2D> m_sharedTexture;
+	HANDLE m_sharedHandle;
 
 	CComPtr<IDirect3D9Ex> m_pD3D9Ex;
 
@@ -53,6 +55,7 @@ private:
 
 	std::vector <std::shared_ptr<D3D9Dev>> m_d3d9Devs;
 	
+	BOOL m_showCursor = FALSE;
 
 	RECT m_monitorRect;
 	float m_fps = 30.0;

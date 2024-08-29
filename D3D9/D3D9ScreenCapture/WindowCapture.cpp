@@ -1,10 +1,12 @@
 #include "WindowCapture.h"
 #include "D3DRender/D3DRender.h"
 
+#pragma comment(lib, "Msimg32.lib")
+
 WindowCapture::WindowCapture(ID3D11Device* pD3D11Device)
 {
-	m_pD3D11Device = pD3D11Device;
-	m_pD3D11Device->GetImmediateContext(&m_d3d11Context);
+	m_d3d11Device = pD3D11Device;
+	m_d3d11Device->GetImmediateContext(&m_d3d11Context);
 
 	m_bCaptureThrdRunning = FALSE;
 	m_hCaptureThrd = NULL;
@@ -48,8 +50,11 @@ void WindowCapture::Release()
 		CloseHandle(m_hCaptureThrd);
 		m_hCaptureThrd = NULL;
 	}
-	
-	
+}
+
+void WindowCapture::ShowCusor(BOOL show)
+{
+	m_showCursor = show;
 }
 
 DWORD WINAPI WindowCapture::CaptureThrd(LPVOID lpParam)
@@ -64,6 +69,7 @@ DWORD WINAPI WindowCapture::CaptureThrd(LPVOID lpParam)
 void WindowCapture::DoCapture()
 {
 	// just for test...
+	// m_fps = 10;
 	int sleepTime = 1000.0 / m_fps;
 
 	int width = m_monitorRect.right - m_monitorRect.left;
@@ -79,23 +85,23 @@ void WindowCapture::DoCapture()
 			Direct3DCreate9Ex(D3D_SDK_VERSION, &m_pD3D9Ex);
 		}
 		
-		if (!m_pD3D11Device || !m_pD3D9Ex)
+		if (!m_d3d11Device || !m_pD3D9Ex)
 			continue;
 
-		if (m_pSharedTexture)
+		if (m_sharedTexture)
 		{
 			D3D11_TEXTURE2D_DESC desc;
-			m_pSharedTexture->GetDesc(&desc);
+			m_sharedTexture->GetDesc(&desc);
 
 			if (desc.Width != m_monitorRect.right - m_monitorRect.left ||
 				desc.Height != m_monitorRect.bottom - m_monitorRect.top)
 			{
 				m_d3d9Devs.clear();
-				m_pSharedTexture = NULL;
+				m_sharedTexture = NULL;
 			}
 		}
 
-		if (!m_pSharedTexture)
+		if (!m_sharedTexture)
 		{
 			D3D11_TEXTURE2D_DESC desc;
 			ZeroMemory(&desc, sizeof(desc));
@@ -107,27 +113,27 @@ void WindowCapture::DoCapture()
 			desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 			desc.SampleDesc.Count = 1;
 			desc.Usage = D3D11_USAGE_DEFAULT;
-			desc.MiscFlags = D3D11_RESOURCE_MISC_SHARED;
+			desc.MiscFlags = D3D11_RESOURCE_MISC_SHARED | D3D11_RESOURCE_MISC_GDI_COMPATIBLE;
 			desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-			if (FAILED(hr = m_pD3D11Device->CreateTexture2D(&desc, NULL, &m_pSharedTexture)))
+			if (FAILED(hr = m_d3d11Device->CreateTexture2D(&desc, NULL, &m_sharedTexture)))
 			{
-				m_pSharedTexture = NULL;
+				m_sharedTexture = NULL;
 				continue;
 			}
 
-			m_hSharedHandle = NULL;
+			m_sharedHandle = NULL;
 			CComPtr<IDXGIResource> pDXGIResource;
-			hr |= m_pSharedTexture->QueryInterface(__uuidof(IDXGIResource), (void**)&pDXGIResource);
+			hr |= m_sharedTexture->QueryInterface(__uuidof(IDXGIResource), (void**)&pDXGIResource);
 			if (FAILED(hr))
 			{
-				m_pSharedTexture = NULL;
+				m_sharedTexture = NULL;
 				continue;
 			}
 
-			hr |= pDXGIResource->GetSharedHandle(&m_hSharedHandle);
+			hr |= pDXGIResource->GetSharedHandle(&m_sharedHandle);
 			if (FAILED(hr))
 			{
-				m_pSharedTexture = NULL;
+				m_sharedTexture = NULL;
 				continue;
 			}
 		}
@@ -193,7 +199,7 @@ void WindowCapture::DoCapture()
 				desc.Usage = D3D11_USAGE_DEFAULT;
 				desc.MiscFlags = D3D11_RESOURCE_MISC_SHARED;
 				desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
-				if (FAILED(hr = m_pD3D11Device->CreateTexture2D(&desc, NULL, &pD3D9Dev->pSharedTexture)))
+				if (FAILED(hr = m_d3d11Device->CreateTexture2D(&desc, NULL, &pD3D9Dev->pSharedTexture)))
 				{
 					pD3D9Dev = NULL;
 					continue;
@@ -226,11 +232,23 @@ void WindowCapture::DoCapture()
 			if (hr == D3DERR_DEVICENOTRESET)
 			{
 				m_d3d9Devs.clear();
-				m_pSharedTexture = NULL;
+				m_sharedTexture = NULL;
 				m_pD3D9Ex = NULL;
 			}
 
 			break;
+		}
+
+
+		bool bGetCursorInfoOK = false;
+		CURSORINFO cursorInfo = { 0 };
+		cursorInfo.cbSize = sizeof(CURSORINFO);
+		if (m_showCursor && GetCursorInfo(&cursorInfo))
+		{
+			if (cursorInfo.flags == CURSOR_SHOWING)
+			{
+				bGetCursorInfoOK = true;
+			}
 		}
 
 		// 创建共享位面（复制用：从system memory -> video memory）
@@ -261,22 +279,86 @@ void WindowCapture::DoCapture()
 			{
 				continue;
 			}
+
 		}
 
 
-		if (m_d3d9Devs.size() > 1)
+		if (m_d3d9Devs.size() > 0)
 		{
 			for (auto dev : m_d3d9Devs)
 			{
-				m_d3d11Context->CopySubresourceRegion(m_pSharedTexture, 0, dev->rect.left, dev->rect.top, 0, dev->pSharedTexture, 0, NULL);
+				m_d3d11Context->CopySubresourceRegion(m_sharedTexture, 0, dev->rect.left, dev->rect.top, 0, dev->pSharedTexture, 0, NULL);
 			}
 
-			D3DRender::Instance()->DrawFrame(m_hSharedHandle);
+
+			if (bGetCursorInfoOK &&
+				cursorInfo.ptScreenPos.x >= m_monitorRect.left && cursorInfo.ptScreenPos.x < m_monitorRect.right &&
+				cursorInfo.ptScreenPos.y >= m_monitorRect.top && cursorInfo.ptScreenPos.y < m_monitorRect.bottom)
+			{
+				int cursorWidth = 0;
+				int cursorHeight = 0;
+				ICONINFO iconInfo;
+				if (GetIconInfo(cursorInfo.hCursor, &iconInfo))
+				{
+					BITMAP bmpCursor;
+					if (GetObject(iconInfo.hbmMask, sizeof(BITMAP), &bmpCursor))
+					{
+						cursorWidth = bmpCursor.bmWidth;
+						cursorHeight = bmpCursor.bmHeight; // hbmMask 包含两个位图，AND 和 XOR 掩码
+					}
+
+					// 释放位图资源
+					DeleteObject(iconInfo.hbmMask);
+					DeleteObject(iconInfo.hbmColor);
+				}
+
+				
+
+				// 文本光标（I-beam cursor） 的时候，取出来是一个透明的正方形，所以下面做一次叠加
+				CComPtr<IDXGISurface1> surface1;
+				hr = m_sharedTexture->QueryInterface(__uuidof(IDXGISurface1), (void**)&surface1);
+				if (SUCCEEDED(hr))
+				{
+					auto cursorPosition = cursorInfo.ptScreenPos;
+					HDC hdc = NULL;
+					surface1->GetDC(FALSE, &hdc);
+					if (hdc)
+					{
+#if 0
+						DrawIconEx(hdc, cursorPosition.x - m_monitorRect.left, cursorPosition.y - m_monitorRect.top,
+							cursorInfo.hCursor, 0, 0, 0, 0, DI_IMAGE | DI_DEFAULTSIZE);
+						// DrawIcon(hdc, cursorPosition.x - m_monitorRect.left, cursorPosition.y - m_monitorRect.top, cursorInfo.hCursor);
+#else
+						// 创建一个兼容的内存DC
+						HDC memDC = CreateCompatibleDC(hdc);
+						HBITMAP hBitmap = CreateCompatibleBitmap(hdc, cursorWidth, cursorHeight);
+						SelectObject(memDC, hBitmap);
+
+						// 绘制光标到内存DC
+						DrawIconEx(memDC, 0, 0, cursorInfo.hCursor, cursorWidth, cursorHeight, 0, 0, DI_NORMAL | DI_DEFAULTSIZE);
+
+						// 使用AlphaBlend将光标叠加到目标DC
+						BLENDFUNCTION blendFunc = { 0 };
+						blendFunc.BlendOp = AC_SRC_OVER;
+						blendFunc.BlendFlags = 0;
+						blendFunc.SourceConstantAlpha = 255;
+						blendFunc.AlphaFormat = AC_SRC_ALPHA;
+
+						AlphaBlend(hdc, cursorPosition.x - m_monitorRect.left, cursorPosition.y - m_monitorRect.top,
+							cursorWidth, cursorHeight, memDC, 0, 0, cursorWidth, cursorHeight, blendFunc);
+
+						// 清理资源
+						DeleteObject(hBitmap);
+						DeleteDC(memDC);
+#endif
+
+						surface1->ReleaseDC(nullptr);
+
+					}
+				}
+			}
 			
-		}
-		else if (m_d3d9Devs.size() == 1)
-		{
-			D3DRender::Instance()->DrawFrame(m_d3d9Devs[0]->hSharedHandle);
+			D3DRender::Instance()->DrawFrame(m_sharedHandle);
 		}
 		
 
